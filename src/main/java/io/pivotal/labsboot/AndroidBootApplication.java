@@ -3,7 +3,6 @@ package io.pivotal.labsboot;
 import android.app.Application;
 
 import dagger.ObjectGraph;
-import io.pivotal.labsboot.example.AndroidBootModule;
 
 public class AndroidBootApplication extends Application {
     private ObjectGraph mGraph;
@@ -20,7 +19,7 @@ public class AndroidBootApplication extends Application {
 
     public Object[] getModules() {
         final Object[] modules = new Object[1];
-        modules[0] = new AndroidBootModule(this);
+        modules[0] = new ApplicationModule(this);
         return modules;
     }
 

@@ -10,18 +10,16 @@ import static org.mockito.Mockito.mock;
 @Module(
         injects = {
                 AndroidBootActivity.class,
-                AndroidBootActivityTest.class,
+                AndroidBootActivityTest.class
         },
         library = true,
-        complete = false
+        complete = false,
+        overrides = true
 )
 public class TestAndroidBootModule {
-
-    public TestAndroidBootModule() {}
-
     @Provides
     @Singleton
-    AndroidBootDelegate providesClient() {
+    AndroidBootDelegate providesDelegate() {
         return mock(AndroidBootDelegate.class);
     }
 }
