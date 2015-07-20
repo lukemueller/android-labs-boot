@@ -1,10 +1,8 @@
 package io.pivotal.labsboot;
 
-import android.app.Application;
-
 import dagger.ObjectGraph;
 
-public class AndroidBootApplication extends Application {
+public class BootApplication extends android.app.Application {
     private ObjectGraph mGraph;
 
     @Override

@@ -4,10 +4,11 @@ import android.content.Context;
 
 import dagger.Module;
 import dagger.Provides;
+import io.pivotal.labsboot.stores.StoresModule;
 
 @Module(
         includes = {
-                io.pivotal.labsboot.example.AndroidBootModule.class
+                StoresModule.class
         },
         library = true,
         complete = false
