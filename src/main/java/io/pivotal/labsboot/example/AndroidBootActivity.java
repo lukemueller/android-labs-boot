@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import io.pivotal.labsboot.AndroidBootApplication;
 import io.pivotal.labsboot.R;
 
-class AndroidBootActivity extends Activity {
+public class AndroidBootActivity extends Activity {
 
     @Inject
     protected AndroidBootDelegate mAndroidBootDelegate;
