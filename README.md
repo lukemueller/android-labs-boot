@@ -19,15 +19,15 @@ There are a few musts for this application:
 ##Setting up the repo and Android Studio:
 
 1. [Install Android Studio](https://developer.android.com/sdk/index.html)
-2. Run the SDK Manager and download relevant api levels
-3. Clone Android Labs Boot repo
-4. Test repo with :
+1. Run the SDK Manager and download relevant api levels
+1. Clone Android Labs Boot repo
+1. Test repo with :
     ```
         ./gradlew clean test
     ```
-5. Import the build.gradle file into Android Studio
-6. Make sure that your build variant is set to 'Unit Tests'
-7. Test, Code, Build!
+1. Import the build.gradle file into Android Studio
+1. Make sure that your build variant is set to 'Unit Tests'
+1. Test, Code, Build!
 
 So that’s it for setup, go forth and explore!
 
