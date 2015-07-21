@@ -21,11 +21,11 @@ There are a few musts for this application:
 1. [Install Android Studio](https://developer.android.com/sdk/index.html)
 1. Run the SDK Manager and download relevant api levels
 1. Clone Android Labs Boot repo
+1. Import the build.gradle file into Android Studio
 1. Test repo with :
     ```
         ./gradlew clean test
     ```
-1. Import the build.gradle file into Android Studio
 1. Make sure that your build variant is set to 'Unit Tests'
 1. Test, Code, Build!
 
