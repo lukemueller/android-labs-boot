@@ -1,0 +1,7 @@
+pairs:
+  # <initials>: <Firstname> <Lastname>[; <email-id>]
+  lm: Luke Mueller
+  is: Ian Swift
+email:
+  prefix: pair
+  domain: pivotal.io
