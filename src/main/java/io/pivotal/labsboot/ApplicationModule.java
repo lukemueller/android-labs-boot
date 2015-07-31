@@ -4,13 +4,14 @@ import android.content.Context;
 
 import dagger.Module;
 import dagger.Provides;
+import io.pivotal.labsboot.example.AndroidBootModule;
 
 @Module(
-        includes = {
-                io.pivotal.labsboot.example.AndroidBootModule.class
-        },
-        library = true,
-        complete = false
+    includes = {
+        AndroidBootModule.class
+    },
+    complete = false,
+    library = true
 )
 public class ApplicationModule {
     private Context mContext;
