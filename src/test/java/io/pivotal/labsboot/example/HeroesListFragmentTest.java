@@ -3,6 +3,7 @@ package io.pivotal.labsboot.example;
 import android.app.Activity;
 import android.content.Loader;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 
 import junit.framework.Assert;
 
@@ -39,7 +40,7 @@ public class HeroesListFragmentTest {
     @Test
     public void addsHeroesLoaderToLoaderManager() {
         HeroesListFragment fragment = new HeroesListFragment();
-        FragmentTestUtil.startFragment(fragment);
+        FragmentTestUtil.startFragment(fragment, FakeListListenerActivity.class);
 
         Loader<Object> loader = fragment.getActivity().getLoaderManager().getLoader(1);
 
@@ -50,11 +51,12 @@ public class HeroesListFragmentTest {
     @Test
     public void updatedDataIsSetOnAdapter() {
         HeroesListFragment fragment = new HeroesListFragment();
-        FragmentTestUtil.startFragment(fragment, Activity.class);
+        FragmentTestUtil.startFragment(fragment, FakeListListenerActivity.class);
 
         ArrayList<Hero> heroes = new ArrayList<>();
         Hero hero = new Hero();
         hero.setName("Bob");
+        hero.setDetailUrl("http://marvelous.api/example");
         heroes.add(hero);
         fragment.onLoadFinished(null, heroes);
 
@@ -62,8 +64,44 @@ public class HeroesListFragmentTest {
         ShadowBaseAdapter shadowBaseAdapter = Shadows.shadowOf(listAdapter);
         Assert.assertTrue(shadowBaseAdapter.wasNotifyDataSetChangedCalled());
         Assert.assertEquals(fragment.getData().get(0).getName(), "Bob");
+        Assert.assertEquals(fragment.getData().get(0).getDetailUrl(), "http://marvelous.api/example");
+    }
 
-        HeroesListAdapter heroListAdapter = (HeroesListAdapter) fragment.getListAdapter();
-        Assert.assertEquals(heroListAdapter.getData().get(0).getName(), "Bob");
+    @Test
+    public void notifiesActivityOfItemClick() {
+        HeroesListFragment fragment = new HeroesListFragment();
+        FragmentTestUtil.startFragment(fragment, FakeListListenerActivity.class);
+
+        ArrayList<Hero> heroes = new ArrayList<>();
+        Hero hero = new Hero();
+        hero.setDetailUrl("http://marvelous.api.notreal/heroes/12345");
+        heroes.add(hero);
+        fragment.onLoadFinished(null, heroes);
+
+        ListView listView = fragment.getListView();
+        Shadows.shadowOf(listView).performItemClick(0);
+
+        FakeListListenerActivity fakeHeroListListenerActivity = (FakeListListenerActivity) fragment.getActivity();
+        Assert.assertEquals(1, fakeHeroListListenerActivity.getOnItemClickCallCount());
+        Assert.assertEquals("http://marvelous.api.notreal/heroes/12345", fakeHeroListListenerActivity.getOnItemClickArg());
+    }
+
+    private static class FakeListListenerActivity extends Activity implements HeroListListener {
+        private int onItemClickCallCount;
+        private String onItemClickArg;
+
+        @Override
+        public void onItemClick(String dataURL) {
+            onItemClickArg = dataURL;
+            onItemClickCallCount++;
+        }
+
+        public int getOnItemClickCallCount() {
+            return onItemClickCallCount;
+        }
+
+        public String getOnItemClickArg() {
+            return onItemClickArg;
+        }
     }
 }

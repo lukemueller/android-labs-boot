@@ -69,6 +69,9 @@ public class HeroesAsyncTaskLoaderTest {
         Assert.assertEquals("Ajak", heroes.get(1).getName());
         Assert.assertEquals("Ajaxis", heroes.get(2).getName());
 
+        Assert.assertEquals("http://marvelousapi.cfapps.io/heroes/1011136", heroes.get(0).getDetailUrl());
+        Assert.assertEquals("http://marvelousapi.cfapps.io/heroes/1011176", heroes.get(1).getDetailUrl());
+        Assert.assertEquals("http://marvelousapi.cfapps.io/heroes/1010870", heroes.get(2).getDetailUrl());
         server.shutdown();
     }
 

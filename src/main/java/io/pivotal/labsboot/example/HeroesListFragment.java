@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,8 @@ import io.pivotal.labsboot.R;
 
 public class HeroesListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<List<Hero>> {
 
-    private BaseAdapter adapter;
+    private HeroListListener heroListListener;
+    private HeroesListAdapter adapter;
     private List<Hero> data;
 
     @Inject
@@ -33,12 +35,27 @@ public class HeroesListFragment extends ListFragment implements LoaderManager.Lo
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((AndroidBootApplication) getActivity().getApplication()).inject(this);
+
+        try {
+            heroListListener = (HeroListListener) activity;
+        } catch (ClassCastException e) {
+            throw new RuntimeException("io.pivotal.labsboot.example.HeroesListFragment must be attached to an implementation of io.pivotal.labsboot.example.HeroListListener");
+        }
+        
+        ((AndroidBootApplication) activity.getApplication()).inject(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.hero_list_fragment, container, false);
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        Hero selectedHero = (Hero) adapter.getItem(position);
+        heroListListener.onItemClick(selectedHero.getDetailUrl());
     }
 
     @Override

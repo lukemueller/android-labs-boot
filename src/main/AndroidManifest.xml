@@ -8,7 +8,7 @@
         android:name=".AndroidBootApplication"
         android:theme="@android:style/Theme.Holo.Light">
         <activity
-            android:name=".example.AndroidBootActivity"
+            android:name=".example.HeroListActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

@@ -10,8 +10,10 @@ import dagger.Provides;
 
 @Module(
     injects = {
-        HeroesListFragment.class
+        HeroesListFragment.class,
+        HeroesListAdapter.class
     },
+    library = true,
     complete = false
 )
 public class AndroidBootModule {
